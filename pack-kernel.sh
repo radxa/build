@@ -25,7 +25,7 @@ CMD=`realpath $0`
 BUILD_DIR=`dirname $CMD`
 ROCKCHIP_BSP_DIR=$(realpath $BUILD_DIR/..)
 PACKAGES_DIR=$ROCKCHIP_BSP_DIR/out/packages
-[ ! -d "$PACKAGES_DIR" ] && mkdir $PACKAGES_DIR
+[ ! -d "$PACKAGES_DIR" ] && mkdir -p $PACKAGES_DIR
 KERNEL_DIR=$ROCKCHIP_BSP_DIR/kernel
 
 #build on native arm64
