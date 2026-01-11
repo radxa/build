@@ -101,10 +101,10 @@ elif [ "${CHIP}" == "rk3288" ]; then
 elif [ "${CHIP}" == "rk3328" ]; then
 	$TOOLPATH/loaderimage --pack --uboot ./u-boot-dtb.bin uboot.img 0x200000 --size 1024 1
 
-	tools/mkimage -n rk3328 -T rksd -d ../rkbin/bin/rk33/rk3328_ddr_333MHz_v1.20.bin idbloader.img
+	tools/mkimage -n rk3328 -T rksd -d ../rkbin/bin/rk33/rk3328_ddr_333MHz_v1.22.bin idbloader.img
 	cat ../rkbin/bin/rk33/rk322xh_miniloader_v2.50.bin >> idbloader.img
 	cp idbloader.img ${OUT}/u-boot/	
-	cp ../rkbin/bin/rk33/rk3328_loader_v1.20.250.bin ${OUT}/u-boot/
+	cp ../rkbin/bin/rk33/rk3328_loader_v1.22.250.bin ${OUT}/u-boot/
 
 	cat >trust.ini <<EOF
 [VERSION]
@@ -140,7 +140,7 @@ elif [ "${CHIP}" == "rk3399" ]; then
 	cp idbloader-spi.img ${OUT}/u-boot/spi
 
 	cp ../rkbin/bin/rk33/rk3399_loader_v1.30.130.bin ${OUT}/u-boot/
-	cp ../rkbin/bin/rk33/rk3399_loader_spinor_v1.30.114.bin ${OUT}/u-boot/spi
+#	cp ../rkbin/bin/rk33/rk3399_loader_spinor_v1.30.114.bin ${OUT}/u-boot/spi
 
 	cat >trust.ini <<EOF
 [VERSION]
@@ -292,10 +292,10 @@ elif [ "${CHIP}" == "rk3128" ]; then
 elif [ "${CHIP}" == "rk3308" ]; then
 	$TOOLPATH/loaderimage --pack --uboot ./u-boot-dtb.bin uboot.img 0x600000 --size 1024 1
 
-	tools/mkimage -n rk3308 -T rksd -d ../rkbin/bin/rk33/rk3308_ddr_589MHz_uart0_m0_v2.06.bin idbloader.img
+	tools/mkimage -n rk3308 -T rksd -d ../rkbin/bin/rk33/rk3308_ddr_589MHz_uart0_m0_v2.11.bin idbloader.img
 	cat ../rkbin/bin/rk33/rk3308_miniloader_v1.36_sd.bin >> idbloader.img
 	cp idbloader.img ${OUT}/u-boot/
-	cp ../rkbin/bin/rk33/rk3308_loader_ddr589MHz_uart0_m0_v2.06.136sd.bin ${OUT}/u-boot
+	cp ../rkbin/bin/rk33/rk3308_loader_sdnand_uart0_v2.11.136.bin ${OUT}/u-boot
 
 	cat >trust.ini <<EOF
 [VERSION]
@@ -305,7 +305,7 @@ MINOR=0
 SEC=0
 [BL31_OPTION]
 SEC=1
-PATH=../rkbin/bin/rk33/rk3308_bl31_v2.24.elf
+PATH=../rkbin/bin/rk33/rk3308_bl31_v2.27.elf
 ADDR=0x00010000
 [BL32_OPTION]
 SEC=0
@@ -351,78 +351,78 @@ EOF
 	cp trust.img ${OUT}/u-boot/
 elif [ "${CHIP}" == "rk3528" ]; then
 	make ${UBOOT_DEFCONFIG}
-	make BL31=../rkbin/bin/rk35/rk3528_bl31_v1.17.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
-	./tools/mkimage -n rk3528 -T rksd -d ../rkbin/bin/rk35/rk3528_ddr_1056MHz_v1.10.bin:spl/u-boot-spl.bin idbloader.img
+	make BL31=../rkbin/bin/rk35/rk3528_bl31_v1.21.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
+	./tools/mkimage -n rk3528 -T rksd -d ../rkbin/bin/rk35/rk3528_ddr_1056MHz_v1.13.bin:spl/u-boot-spl.bin idbloader.img
 	cp u-boot.itb ${OUT}/u-boot/
 	cp idbloader.img ${OUT}/u-boot/
-	cp ../rkbin/bin/rk35/rk3528_spl_loader_v1.10.105.bin ${OUT}/u-boot/
+	cp ../rkbin/bin/rk35/rk3528_spl_loader_v1.13.106.bin ${OUT}/u-boot/
 elif [ "${CHIP}" == "rk3566" ]; then
 	make ${UBOOT_DEFCONFIG}
-	make BL31=../rkbin/bin/rk35/rk3568_bl31_v1.44.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
-	./tools/mkimage -n rk3568 -T rksd -d ../rkbin/bin/rk35/rk3566_ddr_1056MHz_v1.23.bin:spl/u-boot-spl.bin idbloader.img
+	make BL31=../rkbin/bin/rk35/rk3568_bl31_v1.46.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
+	./tools/mkimage -n rk3568 -T rksd -d ../rkbin/bin/rk35/rk3566_ddr_1056MHz_v1.25.bin:spl/u-boot-spl.bin idbloader.img
 	cp u-boot.itb ${OUT}/u-boot/
 	cp idbloader.img ${OUT}/u-boot/
-	cp ../rkbin/bin/rk35/rk356x_spl_loader_v1.23.114.bin ${OUT}/u-boot/
+	cp ../rkbin/bin/rk35/rk356x_spl_loader_v1.25.114.bin ${OUT}/u-boot/
 	generate_spi_image
 elif [ "${CHIP}" == "rk3568" ]; then
 	make ${UBOOT_DEFCONFIG}
-	make BL31=../rkbin/bin/rk35/rk3568_bl31_v1.44.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
-	./tools/mkimage -n rk3568 -T rksd -d ../rkbin/bin/rk35/rk3568_ddr_1056MHz_v1.23.bin:spl/u-boot-spl.bin idbloader.img
+	make BL31=../rkbin/bin/rk35/rk3568_bl31_v1.46.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
+	./tools/mkimage -n rk3568 -T rksd -d ../rkbin/bin/rk35/rk3568_ddr_1056MHz_v1.25.bin:spl/u-boot-spl.bin idbloader.img
 	cp u-boot.itb ${OUT}/u-boot/
 	cp idbloader.img ${OUT}/u-boot/
-	cp ../rkbin/bin/rk35/rk356x_spl_loader_v1.23.114.bin ${OUT}/u-boot/
+	cp ../rkbin/bin/rk35/rk356x_spl_loader_v1.25.114.bin ${OUT}/u-boot/
 	generate_spi_image
 elif [ "${CHIP}" == "rk3576" ]; then
 	make ${UBOOT_DEFCONFIG}
-	make BL31=../rkbin/bin/rk35/rk3576_bl31_v1.12.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
+	make BL31=../rkbin/bin/rk35/rk3576_bl31_v1.24.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
 
 	cp ../rkbin/RKBOOT/RK3576MINIALL.ini .
-	sed -i "s|FlashBoost=.*$|FlashBoost=../rkbin/bin/rk35/rk3576_boost_v1.02.bin|g" RK3576MINIALL.ini
-	sed -i "s|Path1=.*rk3576_ddr.*$|Path1=../rkbin/bin/rk35/rk3576_ddr_lp4_2112MHz_lp5_2736MHz_v1.08.bin|g" RK3576MINIALL.ini
-	sed -i "s|Path1=.*rk3576_usbplug.*$|Path1=../rkbin/bin/rk35/rk3576_usbplug_v1.03.bin|g" RK3576MINIALL.ini
-	sed -i "s|FlashData=.*$|FlashData=../rkbin/bin/rk35/rk3576_ddr_lp4_2112MHz_lp5_2736MHz_v1.08.bin|g" RK3576MINIALL.ini
+	sed -i "s|FlashBoost=.*$|FlashBoost=../rkbin/bin/rk35/rk3576_boost_v1.03.bin|g" RK3576MINIALL.ini
+	sed -i "s|Path1=.*rk3576_ddr.*$|Path1=../rkbin/bin/rk35/rk3576_ddr_lp4_2112MHz_lp5_2736MHz_v1.12.bin|g" RK3576MINIALL.ini
+	sed -i "s|Path1=.*rk3576_usbplug.*$|Path1=../rkbin/bin/rk35/rk3576_usbplug_v1.04.bin|g" RK3576MINIALL.ini
+	sed -i "s|FlashData=.*$|FlashData=../rkbin/bin/rk35/rk3576_ddr_lp4_2112MHz_lp5_2736MHz_v1.12.bin|g" RK3576MINIALL.ini
 	sed -i "s|FlashBoot=.*$|FlashBoot=./spl/u-boot-spl.bin|g" RK3576MINIALL.ini
 	sed -i "s|IDB_PATH=.*$|IDB_PATH=idbloader.img|g" RK3576MINIALL.ini
 	../rkbin/tools/boot_merger RK3576MINIALL.ini
 
 	cp u-boot.itb ${OUT}/u-boot/
 	cp idbloader.img ${OUT}/u-boot/
-	cp ../rkbin/bin/rk35/rk3576_spl_loader_v1.08.106.bin ${OUT}/u-boot/
+	cp ../rkbin/bin/rk35/rk3576_spl_loader_v1.12.108.bin ${OUT}/u-boot/
 
 	if [ -n "$UBOOT_SPI_DEFCONFIG" ]; then
 		make distclean
 		make ${UBOOT_SPI_DEFCONFIG}
-		make BL31=../rkbin/bin/rk35/rk3576_bl31_v1.12.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
+		make BL31=../rkbin/bin/rk35/rk3576_bl31_v1.24.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
 
 		cp ../rkbin/RKBOOT/RK3576MINIALL.ini .
-		sed -i "s|FlashBoost=.*$|FlashBoost=../rkbin/bin/rk35/rk3576_boost_v1.02.bin|g" RK3576MINIALL.ini
-		sed -i "s|Path1=.*rk3576_ddr.*$|Path1=../rkbin/bin/rk35/rk3576_ddr_lp4_2112MHz_lp5_2736MHz_v1.08.bin|g" RK3576MINIALL.ini
-		sed -i "s|Path1=.*rk3576_usbplug.*$|Path1=../rkbin/bin/rk35/rk3576_usbplug_v1.03.bin|g" RK3576MINIALL.ini
-		sed -i "s|FlashData=.*$|FlashData=../rkbin/bin/rk35/rk3576_ddr_lp4_2112MHz_lp5_2736MHz_v1.08.bin|g" RK3576MINIALL.ini
+		sed -i "s|FlashBoost=.*$|FlashBoost=../rkbin/bin/rk35/rk3576_boost_v1.03.bin|g" RK3576MINIALL.ini
+		sed -i "s|Path1=.*rk3576_ddr.*$|Path1=../rkbin/bin/rk35/rk3576_ddr_lp4_2112MHz_lp5_2736MHz_v1.12.bin|g" RK3576MINIALL.ini
+		sed -i "s|Path1=.*rk3576_usbplug.*$|Path1=../rkbin/bin/rk35/rk3576_usbplug_v1.04.bin|g" RK3576MINIALL.ini
+		sed -i "s|FlashData=.*$|FlashData=../rkbin/bin/rk35/rk3576_ddr_lp4_2112MHz_lp5_2736MHz_v1.12.bin|g" RK3576MINIALL.ini
 		sed -i "s|FlashBoot=.*$|FlashBoot=./spl/u-boot-spl.bin|g" RK3576MINIALL.ini
 		sed -i "s|IDB_PATH=.*$|IDB_PATH=idbloader.img|g" RK3576MINIALL.ini
 		../rkbin/tools/boot_merger RK3576MINIALL.ini
 
 		cp u-boot.itb ${OUT}/u-boot/spi/
 		cp idbloader.img ${OUT}/u-boot/spi/
-		cp ../rkbin/bin/rk35/rk3576_spl_loader_v1.08.106.bin ${OUT}/u-boot/spi/
+		cp ../rkbin/bin/rk35/rk3576_spl_loader_v1.12.108.bin ${OUT}/u-boot/spi/
 	fi
 	generate_spi_image
 elif [ "${CHIP}" == "rk3588s" ] || [ "${CHIP}" == "rk3588" ]; then
 	make ${UBOOT_DEFCONFIG}
-	make BL31=../rkbin/bin/rk35/rk3588_bl31_v1.47.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
-	./tools/mkimage -n rk3588 -T rksd -d ../rkbin/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.18.bin:spl/u-boot-spl.bin idbloader.img
+	make BL31=../rkbin/bin/rk35/rk3588_bl31_v1.54.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
+	./tools/mkimage -n rk3588 -T rksd -d ../rkbin/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.22.bin:spl/u-boot-spl.bin idbloader.img
 	cp u-boot.itb ${OUT}/u-boot/
 	cp idbloader.img ${OUT}/u-boot/
-	cp ../rkbin/bin/rk35/rk3588_spl_loader_v1.18.113.bin ${OUT}/u-boot
+	cp ../rkbin/bin/rk35/rk3588_spl_loader_v1.22.114.bin ${OUT}/u-boot
 	if [ -n "$UBOOT_SPI_DEFCONFIG" ]; then
 		make distclean
 		make ${UBOOT_SPI_DEFCONFIG}
-		make BL31=../rkbin/bin/rk35/rk3588_bl31_v1.47.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
-		./tools/mkimage -n rk3588 -T rksd -d ../rkbin/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.18.bin:spl/u-boot-spl.bin idbloader.img
+		make BL31=../rkbin/bin/rk35/rk3588_bl31_v1.54.elf spl/u-boot-spl.bin u-boot.dtb u-boot.itb
+		./tools/mkimage -n rk3588 -T rksd -d ../rkbin/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.22.bin:spl/u-boot-spl.bin idbloader.img
 		cp u-boot.itb ${OUT}/u-boot/spi/
 		cp idbloader.img ${OUT}/u-boot/spi/
-		cp ../rkbin/bin/rk35/rk3588_spl_loader_v1.18.113.bin ${OUT}/u-boot/spi/
+		cp ../rkbin/bin/rk35/rk3588_spl_loader_v1.22.114.bin ${OUT}/u-boot/spi/
 	fi
 	generate_spi_image
 fi
